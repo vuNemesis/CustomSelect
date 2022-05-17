@@ -6,16 +6,15 @@
     </header>
 
     <XSelect
-      style="width: 250px"
+      style="min-width: 350px"
       :options="options1"
       v-model="value1"
       placeholder="Тип аккаунта"
-      required
     />
     <br />
 
     <XSelect
-      style="width: 400px"
+      style="width: 300px"
       :options="options2"
       v-model="value4"
       autofocus
@@ -24,7 +23,7 @@
     <br />
 
     <XSelect
-      style="width: 400px"
+      style="min-width: 350px"
       :options="options3"
       v-model="value4"
       placeholder="Tип организации"
@@ -91,7 +90,7 @@
     </p>
 
     <XSelect
-      style="width: 600px"
+      style="width: 400px"
       :options="options2"
       v-model="value3"
       placeholder="Выберите пользователя"
@@ -212,7 +211,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin: 40px 50px 0;
+  margin: 40px 10px 0;
 }
 
 header {

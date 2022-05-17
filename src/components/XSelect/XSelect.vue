@@ -138,7 +138,6 @@ export default {
         e.shiftKey ||
         e.altKey ||
         e.metaKey ||
-        key === KEY_CODES.TAB ||
         this.activeTouchSelect
       )
         return;
@@ -213,11 +212,11 @@ export default {
       close && this.onClose();
     },
     onTouchChange(e) {
-      this.selectedOption = this.options.find(
+      this.selectedOption = this.flatOptions.find(
         (option) => option.value == e.target.value
       );
 
-      this.$emit("input", e.target.value);
+      this.$emit("input", this.selectedOption.value);
     },
     onClose() {
       if (this.disabled) return;
@@ -258,7 +257,7 @@ export default {
           <option disabled value="">
             {this.placeholder}
           </option>
-          {this.options.map((option) => (
+          {this.flatOptions.map((option) => (
             <option value={option.value}>{option.label}</option>
           ))}
         </select>
@@ -314,7 +313,6 @@ export default {
 
 .touch-select {
   opacity: 0;
-  z-index: 1;
   height: 48px;
   border-radius: 10px;
   width: 100%;

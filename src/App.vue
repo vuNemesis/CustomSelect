@@ -5,13 +5,20 @@
       <h2>CustomSelect: Vue2</h2>
     </header>
 
-    <XSelect :options="options1" v-model="value1" placeholder="Тип аккаунта" />
+    <XSelect
+      style="width: 250px"
+      :options="options1"
+      v-model="value1"
+      placeholder="Тип аккаунта"
+      required
+    />
     <br />
 
     <XSelect
       style="width: 400px"
       :options="options2"
       v-model="value4"
+      autofocus
       placeholder="Выберите пользователя"
     />
     <br />
@@ -24,7 +31,7 @@
     />
     <br />
 
-    <XSelect disabled placeholder="Test" />
+    <XSelect disabled placeholder="Test" style="width: 300px" />
     <br />
 
     <p>

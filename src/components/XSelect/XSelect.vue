@@ -41,6 +41,22 @@ export default {
       type: String,
       default: "",
     },
+    autofocus: {
+      type: Boolean,
+      default: false,
+    },
+    required: {
+      type: Boolean,
+      default: false,
+    },
+    name: {
+      type: String,
+      default: null,
+    },
+    form: {
+      type: String,
+      default: null,
+    },
   },
 
   data() {
@@ -93,6 +109,10 @@ export default {
     this.isTouchDevice = checkTouchSmartphoneDevice();
   },
 
+  mounted() {
+    this.autofocus && this.$refs.wrapper.focus();
+  },
+
   provide() {
     return {
       instance: this,
@@ -111,16 +131,17 @@ export default {
       this.onClose();
     },
     onKeyDown(e) {
+      const key = "which" in e ? e.which : e.keyCode;
+
       if (
         e.ctrlKey ||
         e.shiftKey ||
         e.altKey ||
         e.metaKey ||
+        key === KEY_CODES.TAB ||
         this.activeTouchSelect
       )
         return;
-
-      const key = "which" in e ? e.which : e.keyCode;
 
       switch (key) {
         case KEY_CODES.ENTER:
@@ -219,13 +240,20 @@ export default {
     renderTouchSelect() {
       return (
         <select
-          tabIndex="0"
+          tabIndex={this.activeTouchSelect && !this.disabled ? 0 : -1}
+          style={{
+            "z-index": this.activeTouchSelect && !this.disabled ? 1 : -1,
+          }}
+          form={this.form}
+          name={this.name}
+          required={this.required}
           class="touch-select"
           value={this.value}
           onChange={this.onTouchChange}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
           onKeyDown={this.onKeyDown}
+          disabled={this.disabled}
         >
           <option disabled value="">
             {this.placeholder}
@@ -256,7 +284,7 @@ export default {
 
     return (
       <div ref="wrapper" class="x-select" {...props}>
-        {this.activeTouchSelect && !this.disabled && this.renderTouchSelect()}
+        {this.renderTouchSelect()}
 
         <XSelectInput vOn:click_native={this.onInputClick} />
         {this.isOpened && <XSelectMenu />}
